@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyRedditClient.iml" filepath="$PROJECT_DIR$/MyRedditClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cray.iml" filepath="$PROJECT_DIR$/cray.iml" />
       <module fileurl="file://$PROJECT_DIR$/leasedaogenerator/leasedaogenerator.iml" filepath="$PROJECT_DIR$/leasedaogenerator/leasedaogenerator.iml" />
     </modules>
   </component>

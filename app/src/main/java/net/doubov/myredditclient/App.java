@@ -1,37 +1,35 @@
 package net.doubov.myredditclient;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
-import com.example.model.DaoMaster;
-import com.example.model.DaoSession;
+import net.doubov.myredditclient.di.AppComponent;
+import net.doubov.myredditclient.di.AppModule;
+import net.doubov.myredditclient.di.DaggerAppComponent;
+import net.doubov.myredditclient.di.GreenDaoModule;
+
+import timber.log.Timber;
 
 public class App extends Application {
 
-    private static App sApp;
+  private AppComponent appComponent;
 
-    private DaoMaster.DevOpenHelper mDbHelper;
-    private DaoSession mDbSession;
+  @Override
+  public void onCreate() {
+    super.onCreate();
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        sApp = this;
-        mDbHelper = new DaoMaster.DevOpenHelper(this, null, null);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        mDbSession = daoMaster.newSession();
+    if (BuildConfig.DEBUG) {
+      Timber.plant(new Timber.DebugTree());
     }
 
-    public static App getApp() {
-        return sApp;
-    }
+    appComponent =
+        DaggerAppComponent.builder()
+            .appModule(new AppModule(this))
+            .greenDaoModule(new GreenDaoModule())
+            .build();
+  }
 
-    public DaoMaster.DevOpenHelper getDbHelper() {
-        return mDbHelper;
-    }
-
-    public DaoSession getDbSession() {
-        return mDbSession;
-    }
+  public AppComponent getAppComponent() {
+    return appComponent;
+  }
 }
